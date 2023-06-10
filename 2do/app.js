@@ -103,5 +103,19 @@ manager.addProduct(product2); // Agregar otro producto al gestor
 
 console.log(product2); // Imprimir el producto con el campo id asignado automáticamente
 
+const product3 = {
+    id: null, // El campo id se inicializa como null y se llenará automáticamente en el método addProduct
+    title: "Nintendo Switch",
+    description: "Consola de videojuegos portatil",
+    price: 14999.99,
+    thumbnail: "ruta-imagen-3.jpg",
+    code: "003",
+    stock: 150,
+  };
+  
+  manager.addProduct(product3); // Agregar otro producto al gestor
+  
+  console.log(product3); // Imprimir el producto con el campo id asignado automáticamente
+
 const products = manager.getProduct(); // Obtener todos los productos del gestor
 console.log(products); // Imprimir el arreglo de productos

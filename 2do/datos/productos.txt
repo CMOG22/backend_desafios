@@ -1,4 +1,4 @@
-Última actualización: 2023-06-10T01:27:16.016Z
+Última actualización: 2023-06-10T02:29:11.255Z
 
 [
   {
@@ -18,5 +18,14 @@
     "thumbnail": "ruta-imagen-2.jpg",
     "code": "002",
     "stock": 50
+  },
+  {
+    "id": 3,
+    "title": "Nintendo Switch",
+    "description": "Consola de videojuegos portatil",
+    "price": 14999.99,
+    "thumbnail": "ruta-imagen-3.jpg",
+    "code": "003",
+    "stock": 150
   }
 ]
