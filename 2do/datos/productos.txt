@@ -1,0 +1,22 @@
+Última actualización: 2023-06-10T01:27:16.016Z
+
+[
+  {
+    "id": 1,
+    "title": "Poco X3 1",
+    "description": "Smartphone de gama media alta a precio de gama baja",
+    "price": 6999.99,
+    "thumbnail": "ruta-imagen-1.jpg",
+    "code": "001",
+    "stock": 100
+  },
+  {
+    "id": 2,
+    "title": "Asus f15 2023",
+    "description": "Laptop Gamer Core i5",
+    "price": 21999.99,
+    "thumbnail": "ruta-imagen-2.jpg",
+    "code": "002",
+    "stock": 50
+  }
+]
