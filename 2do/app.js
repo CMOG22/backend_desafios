@@ -47,6 +47,28 @@ class ProductManager {
     }
   }
 
+  updateProduct(id, updatedProduct) {
+    const index = this.products.findIndex((p) => p.id === id);
+    if (index !== -1) {
+      this.products[index] = { ...updatedProduct, id };
+      this.saveProductsToFile(); // Guardar los productos actualizados en el archivo
+      console.log("Producto actualizado correctamente");
+    } else {
+      console.log("Producto no encontrado");
+    }
+  }
+
+  deleteProduct(id) {
+    const index = this.products.findIndex((p) => p.id === id);
+    if (index !== -1) {
+      this.products.splice(index, 1);
+      this.saveProductsToFile(); // Guardar los productos actualizados en el archivo
+      console.log("Producto eliminado correctamente");
+    } else {
+      console.log("Producto no encontrado");
+    }
+  }
+
   saveProductsToFile() {
     const folderPath = path.join(__dirname, 'datos'); // Ruta a la carpeta "datos"
     const filePath = path.join(folderPath, 'productos.txt'); // Ruta al archivo "productos.txt"
@@ -103,19 +125,21 @@ manager.addProduct(product2); // Agregar otro producto al gestor
 
 console.log(product2); // Imprimir el producto con el campo id asignado automáticamente
 
-const product3 = {
-    id: null, // El campo id se inicializa como null y se llenará automáticamente en el método addProduct
-    title: "Nintendo Switch",
-    description: "Consola de videojuegos portatil",
-    price: 14999.99,
-    thumbnail: "ruta-imagen-3.jpg",
-    code: "003",
-    stock: 150,
-  };
-  
-  manager.addProduct(product3); // Agregar otro producto al gestor
-  
-  console.log(product3); // Imprimir el producto con el campo id asignado automáticamente
-
 const products = manager.getProduct(); // Obtener todos los productos del gestor
 console.log(products); // Imprimir el arreglo de productos
+
+const updatedProduct = {
+  title: "Poco X3 Pro",
+  description: "Smartphone de gama media-alta con gran rendimiento",
+  price: 7999.99,
+  thumbnail: "ruta-imagen-3.jpg",
+  code: "001",
+  stock: 80,
+};
+
+manager.updateProduct(1, updatedProduct); // Actualizar el producto con id 1
+
+manager.deleteProduct(2); // Eliminar el producto con id 2
+
+console.log(manager.getProduct()); // Imprimir el arreglo de productos actualizado
+
