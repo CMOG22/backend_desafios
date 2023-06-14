@@ -3,8 +3,9 @@ const path = require('path');
 
 class ProductManager {
   constructor() {
-    this.products = []; // Arreglo para almacenar los productos
-    this.productId = 1; // Inicializar el contador de id en 1
+    this.productsFilePath = path.join(__dirname, 'datos', 'productos.txt'); // Ruta al archivo "productos.txt"
+    this.loadProductsFromFile(); // Cargar los productos desde el archivo al iniciar la clase
+    this.productId = this.products.length > 0 ? this.products[this.products.length - 1].id + 1 : 1; // Inicializar el contador de id en base al último producto existente
   }
 
   addProduct(product) {
@@ -69,11 +70,18 @@ class ProductManager {
     }
   }
 
-  saveProductsToFile() {
-    const folderPath = path.join(__dirname, 'datos'); // Ruta a la carpeta "datos"
-    const filePath = path.join(folderPath, 'productos.txt'); // Ruta al archivo "productos.txt"
+  loadProductsFromFile() {
+    try {
+      const data = fs.readFileSync(this.productsFilePath, 'utf8');
+      this.products = JSON.parse(data);
+    } catch (err) {
+      this.products = []; // Si ocurre un error al cargar el archivo, inicializar el arreglo de productos vacío
+    }
+  }
 
+  saveProductsToFile() {
     // Verificar si la carpeta "datos" existe, si no, crearla
+    const folderPath = path.dirname(this.productsFilePath);
     if (!fs.existsSync(folderPath)) {
       fs.mkdirSync(folderPath);
     }
@@ -85,7 +93,7 @@ class ProductManager {
     const updatedData = `Última actualización: ${currentDate.toISOString()}\n\n${productsData}`;
 
     // Guardar los datos en el archivo productos.txt
-    fs.writeFile(filePath, updatedData, (err) => {
+    fs.writeFile(this.productsFilePath, updatedData, (err) => {
       if (err) {
         console.log('Error al guardar los productos:', err);
       } else {
@@ -98,7 +106,6 @@ class ProductManager {
 const manager = new ProductManager();
 
 const product1 = {
-  id: null, // El campo id se inicializa como null y se llenará automáticamente en el método addProduct
   title: "Poco X3 1",
   description: "Smartphone de gama media alta a precio de gama baja",
   price: 6999.99,
@@ -112,7 +119,6 @@ manager.addProduct(product1); // Agregar el producto al gestor
 console.log(product1); // Imprimir el producto con el campo id asignado automáticamente
 
 const product2 = {
-  id: null, // El campo id se inicializa como null y se llenará automáticamente en el método addProduct
   title: "Asus f15 2023",
   description: "Laptop Gamer Core i5",
   price: 21999.99,
@@ -142,4 +148,3 @@ manager.updateProduct(1, updatedProduct); // Actualizar el producto con id 1
 manager.deleteProduct(2); // Eliminar el producto con id 2
 
 console.log(manager.getProduct()); // Imprimir el arreglo de productos actualizado
-
